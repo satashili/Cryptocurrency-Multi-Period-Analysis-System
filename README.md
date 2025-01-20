@@ -1,9 +1,10 @@
 # 加密货币多周期分析系统 / Cryptocurrency Multi-Period Analysis System
 
 一个基于 React 和 AI 的加密货币分析工具，提供多周期技术分析和智能交易建议。
+在 https://solanago.top 上部署
 
 A React-based cryptocurrency analysis tool powered by AI, offering multi-period technical analysis and intelligent trading suggestions.
-
+now running on https://solanago.top
 ## 功能特点 / Features
 
 - 🚀 多周期分析 / Multi-period Analysis
