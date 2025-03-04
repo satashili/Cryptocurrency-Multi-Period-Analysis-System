@@ -5,10 +5,6 @@ const BINANCE_API_URL = process.env.REACT_APP_BINANCE_API_URL;
 const OPENAI_API_URL = process.env.REACT_APP_OPENAI_API_URL;
 const OPENAI_API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
 
-if (!BINANCE_API_URL || !OPENAI_API_URL || !OPENAI_API_KEY) {
-  throw new Error('必要的环境变量未设置');
-}
-
 export const api = {
   async checkSymbolExists(symbol: string): Promise<boolean> {
     try {
