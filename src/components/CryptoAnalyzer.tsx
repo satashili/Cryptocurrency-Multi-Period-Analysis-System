@@ -12,7 +12,8 @@ import {
   Fade,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import { styled } from '@mui/material/styles';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import { styled, keyframes } from '@mui/material/styles';
 import { AnalysisReport } from './AnalysisReport';
 import { TweetGenerator } from './TweetGenerator';
 import { MarketSentiment } from './MarketSentiment';
@@ -25,18 +26,51 @@ const GradientText = styled(Typography)(({ theme }) => ({
   WebkitBackgroundClip: 'text',
   color: 'transparent',
   textAlign: 'center',
+  textShadow: '0 0 15px rgba(0, 240, 255, 0.5)',
+  position: 'relative',
+  '&::after': {
+    content: '""',
+    position: 'absolute',
+    bottom: -5,
+    left: '25%',
+    width: '50%',
+    height: '1px',
+    background: 'linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.7), transparent)',
+  }
 }));
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(4),
-  background: 'rgba(20, 20, 20, 0.8)',
+  background: 'rgba(21, 7, 52, 0.8)',
   backdropFilter: 'blur(10px)',
-  border: '1px solid rgba(255, 255, 255, 0.1)',
-  transition: 'transform 0.2s ease-in-out',
-  borderRadius: '16px',
+  border: '1px solid rgba(0, 240, 255, 0.2)',
+  transition: 'all 0.3s ease-in-out',
+  borderRadius: 0,
+  position: 'relative',
+  overflow: 'hidden',
   '&:hover': {
-    transform: 'translateY(-2px)',
+    transform: 'translateY(-4px)',
+    boxShadow: '0 0 20px rgba(0, 240, 255, 0.3)',
   },
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    background: 'linear-gradient(45deg, rgba(0, 240, 255, 0.03) 0%, rgba(255, 0, 160, 0.03) 100%)',
+    pointerEvents: 'none',
+  },
+  '&::after': {
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: '1px',
+    background: 'linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.7), transparent)',
+  }
 }));
 
 const BackgroundGradient = styled(Box)({
@@ -46,8 +80,100 @@ const BackgroundGradient = styled(Box)({
   right: 0,
   bottom: 0,
   zIndex: -1,
-  background: 'radial-gradient(circle at top right, rgba(16, 163, 127, 0.15), transparent 70%), radial-gradient(circle at bottom left, rgba(127, 63, 191, 0.15), transparent 70%)',
+  background: 'radial-gradient(circle at top right, rgba(0, 240, 255, 0.1), transparent 70%), radial-gradient(circle at bottom left, rgba(255, 0, 160, 0.1), transparent 70%)',
 });
+
+const GlitchEffect = keyframes`
+  0% {
+    clip-path: inset(80% 0 0 0);
+    transform: translate(-2px, 2px);
+  }
+  20% {
+    clip-path: inset(10% 0 60% 0);
+    transform: translate(2px, -2px);
+  }
+  40% {
+    clip-path: inset(40% 0 30% 0);
+    transform: translate(1px, 1px);
+  }
+  60% {
+    clip-path: inset(20% 0 70% 0);
+    transform: translate(-1px, -1px);
+  }
+  80% {
+    clip-path: inset(50% 0 20% 0);
+    transform: translate(2px, 2px);
+  }
+  100% {
+    clip-path: inset(70% 0 10% 0);
+    transform: translate(-2px, -2px);
+  }
+`;
+
+const GlitchText = styled(Typography)`
+  position: relative;
+  display: inline-block;
+  
+  &::before, &::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+  }
+  
+  &::before {
+    left: 2px;
+    text-shadow: -1px 0 #00F0FF;
+    animation: ${GlitchEffect} 2s infinite linear alternate-reverse;
+  }
+  
+  &::after {
+    left: -2px;
+    text-shadow: 1px 0 #FF00A0;
+    animation: ${GlitchEffect} 3s infinite linear alternate-reverse;
+  }
+`;
+
+const NeonButton = styled(Button)(({ theme }) => ({
+  position: 'relative',
+  overflow: 'hidden',
+  borderRadius: 0,
+  fontFamily: 'Orbitron, sans-serif',
+  letterSpacing: '0.1em',
+  textTransform: 'uppercase',
+  border: '1px solid rgba(0, 240, 255, 0.3)',
+  transition: 'all 0.3s ease',
+  background: 'linear-gradient(45deg, rgba(0, 240, 255, 0.1) 0%, rgba(255, 0, 160, 0.1) 100%)',
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    left: -100,
+    width: 50,
+    height: '100%',
+    background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)',
+    transform: 'skewX(-20deg)',
+    transition: 'all 0.75s ease',
+  },
+  '&:hover': {
+    boxShadow: '0 0 20px rgba(0, 240, 255, 0.5)',
+    '&::before': {
+      left: '200%',
+    }
+  },
+  '&::after': {
+    content: '""',
+    position: 'absolute',
+    bottom: 0,
+    left: '10%',
+    width: '80%',
+    height: '1px',
+    background: 'linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.7), transparent)',
+  }
+}));
 
 export const CryptoAnalyzer: React.FC = () => {
   const [symbol, setSymbol] = useState<string>('BTC');
@@ -76,7 +202,10 @@ export const CryptoAnalyzer: React.FC = () => {
                 fontSize: '3.5rem',
                 fontWeight: 700,
                 mb: 3,
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
               }}
+              data-text="加密货币多周期分析系统"
             >
               加密货币多周期分析系统
             </GradientText>
@@ -88,6 +217,18 @@ export const CryptoAnalyzer: React.FC = () => {
                 mb: 6,
                 fontSize: '1.5rem',
                 opacity: 0.8,
+                fontFamily: 'Rajdhani, sans-serif',
+                letterSpacing: '0.03em',
+                position: 'relative',
+                '&::before': {
+                  content: '""',
+                  position: 'absolute',
+                  bottom: -15,
+                  left: '35%',
+                  width: '30%',
+                  height: '1px',
+                  background: 'linear-gradient(90deg, transparent, rgba(255, 0, 160, 0.5), transparent)',
+                }
               }}
             >
               专业的加密货币技术分析工具，支持多周期分析和AI辅助决策
@@ -104,37 +245,40 @@ export const CryptoAnalyzer: React.FC = () => {
                     onKeyPress={handleKeyPress}
                     placeholder="例如：BTC、ETH、PEPE"
                     InputProps={{
-                      startAdornment: <SearchIcon sx={{ mr: 1, color: 'text.secondary', fontSize: '2rem' }} />,
+                      startAdornment: <SearchIcon sx={{ mr: 1, color: 'primary.main', fontSize: '2rem' }} />,
                       sx: {
                         fontSize: '1.5rem',
                         '& .MuiInputBase-input': {
                           padding: '16px 20px',
                           height: '2rem',
+                          fontFamily: 'Rajdhani, sans-serif',
                         },
                       }
                     }}
                     InputLabelProps={{
                       sx: {
                         fontSize: '1.3rem',
+                        fontFamily: 'Rajdhani, sans-serif',
+                        letterSpacing: '0.05em',
                       }
                     }}
                   />
                 </Grid>
                 <Grid item xs={12} md={3}>
-                  <Button
+                  <NeonButton
                     fullWidth
                     variant="contained"
                     onClick={handleAnalyze}
                     disabled={loading}
                     size="large"
+                    endIcon={loading ? undefined : <TrendingUpIcon />}
                     sx={{
                       height: '64px',
                       fontSize: '1.3rem',
-                      background: 'linear-gradient(45deg, #10A37F 30%, #7F3FBF 90%)',
                     }}
                   >
-                    {loading ? <CircularProgress size={28} /> : '开始分析'}
-                  </Button>
+                    {loading ? <CircularProgress size={28} color="primary" /> : '开始分析'}
+                  </NeonButton>
                 </Grid>
               </Grid>
             </StyledPaper>
@@ -144,10 +288,12 @@ export const CryptoAnalyzer: React.FC = () => {
                 severity="error" 
                 sx={{ 
                   mt: 2,
-                  backgroundColor: 'rgba(244, 67, 54, 0.1)',
-                  border: '1px solid rgba(244, 67, 54, 0.3)',
+                  backgroundColor: 'rgba(255, 60, 90, 0.1)',
+                  border: '1px solid rgba(255, 60, 90, 0.3)',
+                  borderRadius: 0,
                   '& .MuiAlert-message': {
                     fontSize: '1.2rem',
+                    fontFamily: 'Rajdhani, sans-serif',
                   }
                 }} 
               >
@@ -188,6 +334,19 @@ export const CryptoAnalyzer: React.FC = () => {
                 color: 'text.secondary',
                 opacity: 0.7,
                 fontSize: '1rem',
+                fontFamily: 'Rajdhani, sans-serif',
+                letterSpacing: '0.03em',
+                position: 'relative',
+                padding: '10px',
+                '&::before': {
+                  content: '""',
+                  position: 'absolute',
+                  top: 0,
+                  left: '30%',
+                  width: '40%',
+                  height: '1px',
+                  background: 'linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.3), transparent)',
+                }
               }}
             >
               免责声明：本分析仅供参考，不构成投资建议。加密货币市场风险较大，请谨慎决策。

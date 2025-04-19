@@ -94,7 +94,7 @@ export const api = {
       const response = await axios.post(
         `${OPENAI_API_URL}/chat/completions`,
         {
-          model: "deepseek-chat",
+          model: "deepseek-v3",
           messages: [{
             role: "user",
             content: `请分析${symbol}的多周期数据并提供专业的市场报告：${JSON.stringify(timeframeData)}`
@@ -120,7 +120,7 @@ export const api = {
       const response = await axios.post(
         `${OPENAI_API_URL}/chat/completions`,
         {
-          model: "deepseek-chat",
+          model: "deepseek-v3",
           messages: [{
             role: "user",
             content: `以${style}风格为${symbol}生成一条推文分析：${analysis}`
